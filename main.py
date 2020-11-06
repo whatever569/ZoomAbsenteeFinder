@@ -1,8 +1,11 @@
 from PIL import Image
 import pytesseract
 
+#array of the location of soon to be processed screenshots
 images = []
+#the recognized text from the images
 recText = ""
+#path of the known names
 txtFile = ""
 
 #gets inputs
@@ -32,7 +35,7 @@ def rec(imgUrl):
         exit()
 
 
-#reads names from a .txt file, seperates them using the "," and stores the seperated names in an array
+#reads names from a .txt file, seperates them using the "," and returns the seperated names in array form
 def names(knownNamesTextFile):
     tempStr = ""
     f = open(knownNamesTextFile, 'r')
@@ -60,9 +63,11 @@ def find(names, recognizedText):
 #main execution
 if __name__ == "__main__":
     setup()
+    #loops through all the images, and adds the text from them to recText
     tempText = ""
     for img in images:
         recText += rec(img)
+    #processes recText
     for i in range(len(recText)):
         if recText[i].isalpha():
             tempText += recText[i]
